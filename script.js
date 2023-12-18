@@ -17,6 +17,9 @@ function makeTable() {
 makeTable();
 
 let index = 0;
+let score = 0;
+let scoreDiv = document.querySelector('#score');
+let recordDiv = document.querySelector('#record');
 
 function createFigure() {
 
@@ -81,6 +84,7 @@ function createFigure() {
   } else if (choosingRandomFigure === 6) {
     nameFigure = 6
   }
+  recordDiv.textContent = localStorage.getItem('record')
   return figure[choosingRandomFigure];
 }
 
@@ -118,6 +122,7 @@ function filled(x, y) {
     return cell.classList.contains(`red`)
   }
 }
+console.log(localStorage.getItem('record'))
 
 function run() {
   let historyFigure = JSON.parse(JSON.stringify(currentFigure));
@@ -125,6 +130,11 @@ function run() {
     currentFigure[i] = [currentFigure[i][0], currentFigure[i][1] + 1];
   }
   let futureFigure = JSON.parse(JSON.stringify(currentFigure));
+
+  if (score > localStorage.getItem('record')) {
+    recordDiv.textContent = score;
+    localStorage.setItem('record', score)
+  }
 
   if (!canPutHere(futureFigure, historyFigure)) {
     for (let i = 0; i < currentFigure.length; i++) {
@@ -710,8 +720,5 @@ buttonStart.addEventListener('click', () => {
   run()
   gameOver = false
 });
-
-let score = 0;
-let scoreDiv = document.querySelector('#score');
 
 buttonStop.addEventListener('click', () => gameOver = true);
