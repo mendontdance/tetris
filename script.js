@@ -122,8 +122,11 @@ function filled(x, y) {
     return cell.classList.contains(`red`)
   }
 }
-console.log(localStorage.getItem('record'))
 
+if (score >= localStorage.getItem('record')) {
+  recordDiv.textContent = score;
+  localStorage.setItem('record', score)
+}
 function run() {
   let historyFigure = JSON.parse(JSON.stringify(currentFigure));
   for (let i = 0; i < currentFigure.length; i++) {
@@ -131,7 +134,7 @@ function run() {
   }
   let futureFigure = JSON.parse(JSON.stringify(currentFigure));
 
-  if (score > localStorage.getItem('record')) {
+  if (score >= localStorage.getItem('record')) {
     recordDiv.textContent = score;
     localStorage.setItem('record', score)
   }
