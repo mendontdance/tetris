@@ -88,6 +88,19 @@ function createFigure() {
   return figure[choosingRandomFigure];
 }
 
+let timer = 800;
+let level = 1;
+let levelDiv = document.querySelector('#level');
+let levelButton = document.querySelector('#button-level');
+
+levelButton.addEventListener('click', () => {
+  if (timer !== 150) {
+    timer -= 50
+    levelDiv.textContent = `${level+=1}`;
+  }
+})
+
+
 let nameFigure = 0
 let currentFigure = createFigure(); // Создаю первую фигуру
 let gameOver = false;
@@ -138,6 +151,16 @@ function run() {
     recordDiv.textContent = score;
     localStorage.setItem('record', score)
   }
+
+  if (score % 10 === 0 && score !== 0 && timer !== 150) {
+    timer -= 50
+    levelDiv.textContent = `${level+=1}`;
+  }
+
+  // if (score % 10 === 0 && timer !== 100) {
+  //   timer -= 50
+  //   levelDiv.textContent = `${level + 1}`;
+  // }
 
   if (!canPutHere(futureFigure, historyFigure)) {
     for (let i = 0; i < currentFigure.length; i++) {
@@ -259,8 +282,7 @@ function run() {
 
   setTimeout(() => {
     if (!gameOver) run()
-  }, 200);
-  console.log(score)
+  }, timer);
 }
 
 let position = 0;
@@ -721,7 +743,6 @@ document.addEventListener('keydown', function (event) {
       currentFigure = JSON.parse(JSON.stringify(asdf));
     }
   }
-  console.log(currentFigure)
 });
 
 const buttonStart = document.querySelector('#button-start');

@@ -41,9 +41,23 @@ td {
     font-size: 25px;
     padding: 10px 20px;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 #button-stop:hover {
+    background-color: #504d4d;
+}
+
+#button-level {
+    margin-top: 10px;
+    background-color: #000;
+    color: white;
+    font-size: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#button-level:hover {
     background-color: #504d4d;
 }
 
@@ -66,9 +80,19 @@ td {
     margin-bottom: 10px;
     min-height: 35px;
     min-width: 15px;
+    margin-right: 15px;
+}
+
+#level {
+    background-color: #000;
+    color: white;
+    font-size: 30px;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+    min-height: 35px;
+    min-width: 15px;
 }
 
 .buttons {
     display: flex;
-
 }
