@@ -270,7 +270,7 @@ document.addEventListener('keydown', function (event) {
     let asdf = JSON.parse(JSON.stringify(currentFigure));
     let flag = true;
     for (let i = 0; i < historyFigure.length; i++) {
-      if (asdf[i][0] + 1 < 0 || asdf[i][1] + 1 > 19) return
+      if (asdf[i][0] + 1 < 0 || asdf[i][1] + 1 > 20) return
       asdf[i][0] -= 1;
     }
     let futureFigure = JSON.parse(JSON.stringify(asdf))
@@ -296,7 +296,7 @@ document.addEventListener('keydown', function (event) {
 
     for (let k = 0; k < futureFigure.length; k++) {
       if (futureFigure[k][1] === 20) return
-      if (futureFigure[k][0] + 1 < 0 || futureFigure[k][1] + 1 > 19) {
+      if (futureFigure[k][0] + 1 < 0 || futureFigure[k][1] + 1 > 20) {
         flag = false;
         break
       }
@@ -346,7 +346,7 @@ document.addEventListener('keydown', function (event) {
     let asdf = JSON.parse(JSON.stringify(currentFigure));
     let flag = true;
     for (let i = 0; i < historyFigure.length; i++) {
-      if (asdf[i][0] + 1 < 0 || asdf[i][1] + 1 > 19) return
+      if (asdf[i][0] + 1 < 0 || asdf[i][1] + 1 > 20) return
       asdf[i][0] += 1
     }
     let futureFigure = JSON.parse(JSON.stringify(asdf))
@@ -371,7 +371,7 @@ document.addEventListener('keydown', function (event) {
 
     for (let k = 0; k < futureFigure.length; k++) {
       if (futureFigure[k][1] === 20) return
-      if (futureFigure[k][0] + 1 < 0 || futureFigure[k][1] + 1 > 19) {
+      if (futureFigure[k][0] + 1 < 0 || futureFigure[k][1] + 1 > 20) {
         flag = false;
         break
       }
@@ -677,7 +677,7 @@ document.addEventListener('keydown', function (event) {
 
     for (let k = 0; k < futureFigure.length; k++) {
       if (futureFigure[k][1] === 20) return
-      if (futureFigure[k][0] + 1 < 0 || futureFigure[k][1] + 1 > 19) {
+      if (futureFigure[k][0] + 1 < 0 || futureFigure[k][1] + 1 > 20) {
         flag = false;
         break
       }
@@ -721,6 +721,7 @@ document.addEventListener('keydown', function (event) {
       currentFigure = JSON.parse(JSON.stringify(asdf));
     }
   }
+  console.log(currentFigure)
 });
 
 const buttonStart = document.querySelector('#button-start');
