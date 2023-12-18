@@ -440,7 +440,7 @@ document.addEventListener('keydown', function (event) {
     }
   }
 
-  if (event.key === "ArrowUp") {
+  if (event.key === "ArrowUp" || event.key === " ") {
     let historyFigure = JSON.parse(JSON.stringify(currentFigure));
     let asdf = JSON.parse(JSON.stringify(currentFigure));
     let flag = true;
