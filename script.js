@@ -95,6 +95,7 @@ let levelButtonUp = document.querySelector('#button-level-up');
 
 levelButtonUp.addEventListener('click', (e) => {
   e.preventDefault();
+  levelButtonUp.blur();
   if (timer !== 100) {
     timer -= 100;
     levelDiv.textContent = `${level+=1}`;
@@ -751,11 +752,13 @@ const buttonStop = document.querySelector('#button-stop');
 
 buttonStart.addEventListener('click', (e) => {
   e.preventDefault();
+  buttonStart.blur()
   run()
   gameOver = false
 });
 
 buttonStop.addEventListener('click', (e) => {
   e.preventDefault();
+  buttonStop.blur()
   gameOver = true
 });
