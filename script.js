@@ -88,14 +88,14 @@ function createFigure() {
   return figure[choosingRandomFigure];
 }
 
-let timer = 800;
+let timer = 500;
 let level = 1;
 let levelDiv = document.querySelector('#level');
-let levelButton = document.querySelector('#button-level');
+let levelButtonUp = document.querySelector('#button-level-up');
 
-levelButton.addEventListener('click', () => {
-  if (timer !== 150) {
-    timer -= 50
+levelButtonUp.addEventListener('click', () => {
+  if (timer !== 100) {
+    timer -= 100
     levelDiv.textContent = `${level+=1}`;
   }
 })
@@ -152,8 +152,8 @@ function run() {
     localStorage.setItem('record', score)
   }
 
-  if (score % 10 === 0 && score !== 0 && timer !== 150) {
-    timer -= 50
+  if (score % 10 === 0 && score !== 0 && timer !== 100) {
+    timer -= 100
     levelDiv.textContent = `${level+=1}`;
   }
 
@@ -553,8 +553,9 @@ document.addEventListener('keydown', function (event) {
       if (position === 0) {
         asdf[0][1] += 1;
         asdf[1][0] -= 1;
-        asdf[2][1] += 1;
+        asdf[1][1] += 1;
         asdf[3][0] -= 1;
+        console.log(asdf)
         if (!canPutHere(asdf, historyFigure)) {
           position = 0;
           asdf = JSON.parse(JSON.stringify(currentFigure));
@@ -564,7 +565,7 @@ document.addEventListener('keydown', function (event) {
       } else if (position === 1) {
         asdf[0][1] -= 1;
         asdf[1][0] += 1;
-        asdf[2][1] -= 1;
+        asdf[1][1] -= 1;
         asdf[3][0] += 1;
         if (!canPutHere(asdf, historyFigure)) {
           position = 1;

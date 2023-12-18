@@ -48,7 +48,7 @@ td {
     background-color: #504d4d;
 }
 
-#button-level {
+#button-level-up {
     margin-top: 10px;
     background-color: #000;
     color: white;
@@ -57,7 +57,7 @@ td {
     cursor: pointer;
 }
 
-#button-level:hover {
+#button-level-up:hover {
     background-color: #504d4d;
 }
 
