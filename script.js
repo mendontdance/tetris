@@ -95,7 +95,7 @@ let levelButtonUp = document.querySelector('#button-level-up');
 
 levelButtonUp.addEventListener('click', () => {
   if (timer !== 100) {
-    timer -= 100
+    timer -= 100;
     levelDiv.textContent = `${level+=1}`;
   }
 })
@@ -181,7 +181,7 @@ function run() {
         }
       }
       if (arr.every(cell => cell === true)) {
-        score = score + 1;
+        score = score + level;
         scoreDiv.textContent = score;
         for (let j = 0; j < cells.length; j++) {
           cells[j].classList.add('white')
@@ -555,7 +555,6 @@ document.addEventListener('keydown', function (event) {
         asdf[1][0] -= 1;
         asdf[1][1] += 1;
         asdf[3][0] -= 1;
-        console.log(asdf)
         if (!canPutHere(asdf, historyFigure)) {
           position = 0;
           asdf = JSON.parse(JSON.stringify(currentFigure));
