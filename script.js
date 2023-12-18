@@ -142,6 +142,9 @@ if (score >= localStorage.getItem('record')) {
   recordDiv.textContent = score;
   localStorage.setItem('record', score)
 }
+
+let initialTime = timer
+
 function run() {
   let historyFigure = JSON.parse(JSON.stringify(currentFigure));
   for (let i = 0; i < currentFigure.length; i++) {
@@ -285,6 +288,7 @@ function run() {
   setTimeout(() => {
     if (!gameOver) run()
   }, timer);
+  timer = initialTime;
 }
 
 let position = 0;
@@ -744,6 +748,9 @@ document.addEventListener('keydown', function (event) {
     if (flag) {
       currentFigure = JSON.parse(JSON.stringify(asdf));
     }
+  }
+  if (event.key === "ArrowDown") {
+    timer = 50;
   }
 });
 
