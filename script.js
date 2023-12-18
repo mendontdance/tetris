@@ -20,6 +20,10 @@ let index = 0;
 let score = 0;
 let scoreDiv = document.querySelector('#score');
 let recordDiv = document.querySelector('#record');
+let timer = 500;
+let level = 1;
+let levelDiv = document.querySelector('#level');
+let initialTime = timer;
 
 function createFigure() {
 
@@ -84,23 +88,54 @@ function createFigure() {
   } else if (choosingRandomFigure === 6) {
     nameFigure = 6
   }
+
+  if (score > 2 && score <= 4) {
+    timer = 400
+    level = 2
+    levelDiv.textContent = `${level}`;
+    initialTime = timer
+    console.log(timer)
+    console.log(initialTime)
+  } else if (score > 4 && score <=6) {
+    timer = 300
+    level = 3
+    levelDiv.textContent = `${level}`;
+    initialTime = timer
+    console.log(timer)
+    console.log(initialTime)
+  } else if (score > 6 && score <= 8) {
+    timer = 200
+    level = 4
+    levelDiv.textContent = `${level}`;
+    initialTime = timer
+    console.log(timer)
+    console.log(initialTime)
+  } else if (score > 8) {
+    timer = 100
+    level = 5
+    levelDiv.textContent = `${level}`;
+    initialTime = timer
+    console.log(timer)
+    console.log(initialTime)
+  }
+
   recordDiv.textContent = localStorage.getItem('record')
   return figure[choosingRandomFigure];
 }
 
-let timer = 500;
-let level = 1;
-let levelDiv = document.querySelector('#level');
-let levelButtonUp = document.querySelector('#button-level-up');
-
-levelButtonUp.addEventListener('click', (e) => {
-  e.preventDefault();
-  levelButtonUp.blur();
-  if (timer !== 100) {
-    timer -= 100;
-    levelDiv.textContent = `${level+=1}`;
-  }
-})
+// let levelButtonUp = document.querySelector('#button-level-up');
+//
+// levelButtonUp.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   levelButtonUp.blur();
+//   if (level < 5) {
+//     timer -= 100;
+//     initialTime = timer;
+//     levelDiv.textContent = `${level + 1}`;
+//   }
+//   console.log(initialTime)
+//   console.log(level)
+// })
 
 
 let nameFigure = 0
@@ -143,7 +178,6 @@ if (score >= localStorage.getItem('record')) {
   localStorage.setItem('record', score)
 }
 
-let initialTime = timer
 
 function run() {
   let historyFigure = JSON.parse(JSON.stringify(currentFigure));
@@ -156,16 +190,6 @@ function run() {
     recordDiv.textContent = score;
     localStorage.setItem('record', score)
   }
-
-  if (score % 10 === 0 && score !== 0 && timer !== 100) {
-    timer -= 100
-    levelDiv.textContent = `${level+=1}`;
-  }
-
-  // if (score % 10 === 0 && timer !== 100) {
-  //   timer -= 50
-  //   levelDiv.textContent = `${level + 1}`;
-  // }
 
   if (!canPutHere(futureFigure, historyFigure)) {
     for (let i = 0; i < currentFigure.length; i++) {
