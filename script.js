@@ -93,7 +93,8 @@ let level = 1;
 let levelDiv = document.querySelector('#level');
 let levelButtonUp = document.querySelector('#button-level-up');
 
-levelButtonUp.addEventListener('click', () => {
+levelButtonUp.addEventListener('click', (e) => {
+  e.preventDefault();
   if (timer !== 100) {
     timer -= 100;
     levelDiv.textContent = `${level+=1}`;
@@ -748,9 +749,13 @@ document.addEventListener('keydown', function (event) {
 const buttonStart = document.querySelector('#button-start');
 const buttonStop = document.querySelector('#button-stop');
 
-buttonStart.addEventListener('click', () => {
+buttonStart.addEventListener('click', (e) => {
+  e.preventDefault();
   run()
   gameOver = false
 });
 
-buttonStop.addEventListener('click', () => gameOver = true);
+buttonStop.addEventListener('click', (e) => {
+  e.preventDefault();
+  gameOver = true
+});
