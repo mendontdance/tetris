@@ -21,7 +21,21 @@ td {
 }
 
 #button-start {
-    margin-top: 25px;
+    margin-top: 10px;
+    background-color: #000;
+    color: white;
+    font-size: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+#button-start:hover {
+    background-color: #504d4d;
+}
+
+#button-stop {
+    margin-top: 10px;
     background-color: #000;
     color: white;
     font-size: 25px;
@@ -29,6 +43,20 @@ td {
     cursor: pointer;
 }
 
-#button-start:hover {
+#button-stop:hover {
     background-color: #504d4d;
+}
+
+#score {
+    background-color: #000;
+    color: white;
+    font-size: 30px;
+    padding: 5px 20px;
+    margin-bottom: 10px;
+    min-height: 30px;
+}
+
+.buttons {
+    display: flex;
+
 }

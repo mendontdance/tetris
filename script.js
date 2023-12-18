@@ -145,6 +145,8 @@ function run() {
         }
       }
       if (arr.every(cell => cell === true)) {
+        score = score + 1;
+        scoreDiv.textContent = score;
         for (let j = 0; j < cells.length; j++) {
           cells[j].classList.add('white')
           cells[j].classList.remove(`red`);
@@ -156,8 +158,6 @@ function run() {
           for (let k = 0; k < 11; k++) {
             const cell = document.querySelector(`.tr_${j}_td_${k}`);
             const cellNext = document.querySelector(`.tr_${j + 1}_td_${k}`);
-            console.log(cell)
-            console.log(cellNext)
             if (cell && cellNext) {
               if (cell.classList.contains('red') && cellNext.classList.contains('white')) {
                 cellNext.classList.add('red')
@@ -247,6 +247,7 @@ function run() {
   setTimeout(() => {
     if (!gameOver) run()
   }, 200);
+  console.log(score)
 }
 
 let position = 0;
@@ -408,7 +409,6 @@ document.addEventListener('keydown', function (event) {
     let flag = true;
     if (nameFigure === 0) {
       if (position === 0) {
-        console.log(position)
         asdf[0][0] -= 1;
         asdf[0][1] += 1;
         asdf[2][0] += 1;
@@ -465,7 +465,6 @@ document.addEventListener('keydown', function (event) {
       return
     } else if (nameFigure === 3) {
       if (position === 0) {
-        console.log(0)
         asdf[0][0] -= 2;
         asdf[1][0] -= 1;
         asdf[1][1] += 1;
@@ -478,7 +477,6 @@ document.addEventListener('keydown', function (event) {
           position = 1
         }
       } else if (position === 1) {
-        console.log(1)
         asdf[0][1] += 1;
         asdf[1][0] += 1;
         asdf[2][1] -= 1;
@@ -491,7 +489,6 @@ document.addEventListener('keydown', function (event) {
           position = 2
         }
       } else if (position === 2) {
-        console.log(2)
         asdf[0][0] += 2;
         asdf[1][0] -= 1;
         asdf[1][1] -= 1;
@@ -504,7 +501,6 @@ document.addEventListener('keydown', function (event) {
           position = 3
         }
       } else if (position === 3) {
-        console.log(3)
         asdf[0][1] -= 1;
         asdf[1][0] += 1;
         asdf[2][1] += 1;
@@ -519,7 +515,6 @@ document.addEventListener('keydown', function (event) {
       }
     } else if (nameFigure === 4) {
       if (position === 0) {
-        console.log(position)
         asdf[0][1] += 1;
         asdf[1][0] -= 1;
         asdf[2][1] += 1;
@@ -550,7 +545,6 @@ document.addEventListener('keydown', function (event) {
       //   [6, -1], [7, -3]
       // ],
       if (position === 0) {
-        console.log(position)
         asdf[0][1] += 1;
         asdf[1][0] -= 1;
         asdf[2][1] -= 1;
@@ -609,7 +603,6 @@ document.addEventListener('keydown', function (event) {
       //   [6, -1]
       // ],
       if (position === 0) {
-        console.log(position)
         asdf[0][0] -= 1;
         asdf[0][1] += 1;
         asdf[2][0] -= 1;
@@ -623,7 +616,6 @@ document.addEventListener('keydown', function (event) {
           position = 1
         }
       } else if (position === 1) {
-        console.log(position)
         asdf[0][0] += 2;
         asdf[0][1] += 1;
         asdf[1][0] += 1;
@@ -636,7 +628,6 @@ document.addEventListener('keydown', function (event) {
           position = 2
         }
       } else if (position === 2) {
-        console.log(position)
         asdf[0][1] -= 2;
         asdf[1][0] -= 1;
         asdf[1][1] -= 1;
@@ -648,7 +639,6 @@ document.addEventListener('keydown', function (event) {
           position = 3
         }
       } else if (position === 3) {
-        console.log(position)
         asdf[0][0] -= 1;
         asdf[1][1] += 1;
         asdf[2][0] += 1;
@@ -711,7 +701,6 @@ document.addEventListener('keydown', function (event) {
       currentFigure = JSON.parse(JSON.stringify(asdf));
     }
   }
-  console.log(currentFigure)
 });
 
 const buttonStart = document.querySelector('#button-start');
@@ -721,5 +710,8 @@ buttonStart.addEventListener('click', () => {
   run()
   gameOver = false
 });
+
+let score = 0;
+let scoreDiv = document.querySelector('#score');
 
 buttonStop.addEventListener('click', () => gameOver = true);
