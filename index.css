@@ -1,0 +1,34 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+}
+
+.red {
+    background-color: red;
+}
+
+#button-start {
+    margin-top: 25px;
+    background-color: #000;
+    color: white;
+    font-size: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#button-start:hover {
+    background-color: #504d4d;
+}
