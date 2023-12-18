@@ -89,34 +89,26 @@ function createFigure() {
     nameFigure = 6
   }
 
-  if (score > 2 && score <= 4) {
+  if (score > 5 && score <= 10) {
     timer = 400
     level = 2
     levelDiv.textContent = `${level}`;
     initialTime = timer
-    console.log(timer)
-    console.log(initialTime)
-  } else if (score > 4 && score <=6) {
+  } else if (score > 20 && score <=30) {
     timer = 300
     level = 3
     levelDiv.textContent = `${level}`;
     initialTime = timer
-    console.log(timer)
-    console.log(initialTime)
-  } else if (score > 6 && score <= 8) {
+  } else if (score > 30 && score <= 40) {
     timer = 200
     level = 4
     levelDiv.textContent = `${level}`;
     initialTime = timer
-    console.log(timer)
-    console.log(initialTime)
-  } else if (score > 8) {
+  } else if (score > 40) {
     timer = 100
     level = 5
     levelDiv.textContent = `${level}`;
     initialTime = timer
-    console.log(timer)
-    console.log(initialTime)
   }
 
   recordDiv.textContent = localStorage.getItem('record')
