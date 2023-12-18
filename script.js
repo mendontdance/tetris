@@ -420,6 +420,7 @@ document.addEventListener('keydown', function (event) {
     let historyFigure = JSON.parse(JSON.stringify(currentFigure));
     let asdf = JSON.parse(JSON.stringify(currentFigure));
     let flag = true;
+    let initial = position;
     if (nameFigure === 0) {
       if (position === 0) {
         asdf[0][0] -= 1;
@@ -663,6 +664,12 @@ document.addEventListener('keydown', function (event) {
         } else {
           position = 0
         }
+      }
+    }
+    for (let i = 0; i < asdf.length; i++) {
+      if (asdf[i][0] < 0 || asdf[i][0] > 10) {
+        position = initial
+        return
       }
     }
 
