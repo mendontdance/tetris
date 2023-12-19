@@ -98,17 +98,17 @@ function createFigure() {
     level = 2
     levelDiv.textContent = `${level}`;
     initialTime = timer
-  } else if (score > 20 && score <= 30) {
+  } else if (score > 20 && score <= 40) {
     timer = 300
     level = 3
     levelDiv.textContent = `${level}`;
     initialTime = timer
-  } else if (score > 30 && score <= 40) {
+  } else if (score > 30 && score <= 80) {
     timer = 200
     level = 4
     levelDiv.textContent = `${level}`;
     initialTime = timer
-  } else if (score > 40) {
+  } else if (score > 80) {
     timer = 100
     level = 5
     levelDiv.textContent = `${level}`;
