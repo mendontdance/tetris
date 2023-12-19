@@ -25,6 +25,9 @@ let level = 1;
 let levelDiv = document.querySelector('#level');
 let initialTime = timer;
 
+let colors = ['red', 'blue', 'green'];
+let color = '';
+
 function createFigure() {
 
   let figure = [
@@ -73,6 +76,8 @@ function createFigure() {
   ]
   index = index + 1;
   choosingRandomFigure = Math.round(Math.random() * 6); // выбираю рандомную фигуру
+  choosingRandomColor = Math.round(Math.random() * 2); // выбираю рандомную фигуру
+
   if (choosingRandomFigure === 0) {
     nameFigure = 0
   } else if (choosingRandomFigure === 1) {
@@ -94,7 +99,7 @@ function createFigure() {
     level = 2
     levelDiv.textContent = `${level}`;
     initialTime = timer
-  } else if (score > 20 && score <=30) {
+  } else if (score > 20 && score <= 30) {
     timer = 300
     level = 3
     levelDiv.textContent = `${level}`;
@@ -112,6 +117,7 @@ function createFigure() {
   }
 
   recordDiv.textContent = localStorage.getItem('record')
+  color = colors[choosingRandomColor];
   return figure[choosingRandomFigure];
 }
 
@@ -144,10 +150,10 @@ function canPutHere(future, history) {
         let itsMe = false;
         for (let j = 0; j < future.length; j++) {
           const cell = document.querySelector(`.tr_${future[i][1]}_td_${future[i][0]}`)
-          if (cell.classList.contains(`red_${index}`)) {
+          if (cell.classList.contains(`${color}_${index}`)) {
             itsMe = true;
             break;
-          } else if (!cell.classList.contains(`red_${index}`)) {
+          } else if (!cell.classList.contains(`${color}_${index}`)) {
             itsMe = false
           }
         }
@@ -160,9 +166,12 @@ function canPutHere(future, history) {
 
 function filled(x, y) {
   const cell = document.querySelector(`.tr_${y}_td_${x}`)
-  if (cell) {
-    return cell.classList.contains(`red`)
+  for (let i = 0; i < colors.length; i++) {
+    if (cell && cell.classList.contains(colors[i])) {
+      return true
+    }
   }
+  return false
 }
 
 if (score >= localStorage.getItem('record')) {
@@ -206,9 +215,11 @@ function run() {
         scoreDiv.textContent = score;
         for (let j = 0; j < cells.length; j++) {
           cells[j].classList.add('white')
-          cells[j].classList.remove(`red`);
-          for (let k = 0; k <= index; k++) {
-            cells[j].classList.remove(`red_${k}`);
+          for (let k = 0; k < colors.length; k++) {
+            cells[j].classList.remove(colors[k]);
+            for (let k = 0; k <= index; k++) {
+              cells[j].classList.remove(`${colors[k]}_${k}`);
+            }
           }
         }
         for (let j = i - 1; j >= 0; j--) {
@@ -216,15 +227,17 @@ function run() {
             const cell = document.querySelector(`.tr_${j}_td_${k}`);
             const cellNext = document.querySelector(`.tr_${j + 1}_td_${k}`);
             if (cell && cellNext) {
-              if (cell.classList.contains('red') && cellNext.classList.contains('white')) {
-                cellNext.classList.add('red')
-                cell.classList.remove('red')
-                cellNext.classList.remove('white')
-                cell.classList.add('white')
-                for (let p = 0; p <= index; p++) {
-                  if (cell.classList.contains(`red_${p}`)) {
-                    cell.classList.remove(`red_${p}`);
-                    cellNext.classList.add(`red_${p}`);
+              for (let l = 0; l < colors.length; l++) {
+                if (cell.classList.contains(colors[l]) && cellNext.classList.contains('white')) {
+                  cellNext.classList.add(colors[l])
+                  cell.classList.remove(colors[l])
+                  cellNext.classList.remove('white')
+                  cell.classList.add('white')
+                  for (let p = 0; p <= index; p++) {
+                    if (cell.classList.contains(`${colors[l]}_${p}`)) {
+                      cell.classList.remove(`${colors[l]}_${p}`);
+                      cellNext.classList.add(`${colors[l]}_${p}`);
+                    }
                   }
                 }
               }
@@ -264,8 +277,8 @@ function run() {
       const cell = document.querySelector(`.tr_${historyFigure[i][1]}_td_${historyFigure[i][0]}`);
       if (cell) {
         cell.classList.add('white')
-        cell.classList.remove(`red`);
-        cell.classList.remove(`red_${index}`);
+        cell.classList.remove(color);
+        cell.classList.remove(`${color}_${index}`);
       }
     }
 
@@ -273,8 +286,8 @@ function run() {
       let cell = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
       if (cell) {
         cell.classList.remove('white')
-        cell.classList.add(`red`);
-        cell.classList.add(`red_${index}`);
+        cell.classList.add(color);
+        cell.classList.add(`${color}_${index}`);
       }
     }
   }
@@ -345,9 +358,11 @@ document.addEventListener('keydown', function (event) {
         break
       }
       const cell = document.querySelector(`.tr_${futureFigure[k][1]}_td_${futureFigure[k][0]}`);
-      if (cell && cell.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        return
+      for (let i = 0; i < colors.length; i++) {
+        if (cell && cell.classList.contains(colors[i]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          return
+        }
       }
       if (futureFigure[k][0] < 0) {
         flag = false;
@@ -355,29 +370,31 @@ document.addEventListener('keydown', function (event) {
       }
     }
 
-    for (let i = 0; i < historyFigure.length; i++) {
-      const cell = document.querySelector(`.tr_${historyFigure[i][1]}_td_${historyFigure[i][0]}`);
-      const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
-      if (cell2 && cell2.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        return
-      } else if (cell) {
-        cell.classList.add('white')
-        cell.classList.remove(`red`);
-        cell.classList.remove(`red_${index}`);
+    for (let k = 0; k < colors.length; k++) {
+      for (let i = 0; i < historyFigure.length; i++) {
+        const cell = document.querySelector(`.tr_${historyFigure[i][1]}_td_${historyFigure[i][0]}`);
+        const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
+        if (cell2 && cell2.classList.contains(colors[k]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          return
+        } else if (cell) {
+          cell.classList.add('white')
+          cell.classList.remove(color);
+          cell.classList.remove(`${color}_${index}`);
+        }
       }
-    }
 
-    for (let i = 0; i < futureFigure.length; i++) {
-      let cell = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
-      const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
-      if (cell2 && cell2.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        break
-      } else if (cell) {
-        cell.classList.remove('white')
-        cell.classList.add(`red`);
-        cell.classList.add(`red_${index}`);
+      for (let i = 0; i < futureFigure.length; i++) {
+        let cell = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
+        const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
+        if (cell2 && cell2.classList.contains(colors[k]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          break
+        } else if (cell) {
+          cell.classList.remove('white')
+          cell.classList.add(color);
+          cell.classList.add(`${color}_${index}`);
+        }
       }
     }
     if (flag) {
@@ -420,9 +437,11 @@ document.addEventListener('keydown', function (event) {
         break
       }
       const cell = document.querySelector(`.tr_${futureFigure[k][1]}_td_${futureFigure[k][0]}`);
-      if (cell && cell.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        return
+      for (let i = 0; i < colors.length; i++) {
+        if (cell && cell.classList.contains(colors[i]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          return
+        }
       }
       if (futureFigure[k][0] > 10) {
         flag = false;
@@ -430,29 +449,31 @@ document.addEventListener('keydown', function (event) {
       }
     }
 
-    for (let i = 0; i < historyFigure.length; i++) {
-      const cell = document.querySelector(`.tr_${historyFigure[i][1]}_td_${historyFigure[i][0]}`);
-      const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
-      if (cell2 && cell2.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        return
-      } else if (cell) {
-        cell.classList.add('white')
-        cell.classList.remove(`red`);
-        cell.classList.remove(`red_${index}`);
+    for (let k = 0; k < colors.length; k++) {
+      for (let i = 0; i < historyFigure.length; i++) {
+        const cell = document.querySelector(`.tr_${historyFigure[i][1]}_td_${historyFigure[i][0]}`);
+        const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
+        if (cell2 && cell2.classList.contains(colors[k]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          return
+        } else if (cell) {
+          cell.classList.add('white')
+          cell.classList.remove(color);
+          cell.classList.remove(`${color}_${index}`);
+        }
       }
-    }
 
-    for (let i = 0; i < futureFigure.length; i++) {
-      let cell = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
-      const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
-      if (cell2 && cell2.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        break
-      } else if (cell) {
-        cell.classList.remove('white')
-        cell.classList.add(`red`);
-        cell.classList.add(`red_${index}`);
+      for (let i = 0; i < futureFigure.length; i++) {
+        let cell = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
+        const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
+        if (cell2 && cell2.classList.contains(colors[k]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          break
+        } else if (cell) {
+          cell.classList.remove('white')
+          cell.classList.add(color);
+          cell.classList.add(`${color}_${index}`);
+        }
       }
     }
     if (flag) {
@@ -726,9 +747,11 @@ document.addEventListener('keydown', function (event) {
         break
       }
       const cell = document.querySelector(`.tr_${futureFigure[k][1]}_td_${futureFigure[k][0]}`);
-      if (cell && cell.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        return
+      for (let i = 0; i < colors; i++) {
+        if (cell && cell.classList.contains(colors[i]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          return
+        }
       }
       if (futureFigure[k][0] > 10) {
         flag = false;
@@ -739,26 +762,30 @@ document.addEventListener('keydown', function (event) {
     for (let i = 0; i < historyFigure.length; i++) {
       const cell = document.querySelector(`.tr_${historyFigure[i][1]}_td_${historyFigure[i][0]}`);
       const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
-      if (cell2 && cell2.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        return
-      } else if (cell) {
-        cell.classList.add('white')
-        cell.classList.remove(`red`);
-        cell.classList.remove(`red_${index}`);
+      for (let j = 0; j < colors.length; j++) {
+        if (cell2 && cell2.classList.contains(colors[j]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          return
+        } else if (cell) {
+          cell.classList.add('white')
+          cell.classList.remove(color);
+          cell.classList.remove(`${color}_${index}`);
+        }
       }
     }
 
     for (let i = 0; i < futureFigure.length; i++) {
       let cell = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
       const cell2 = document.querySelector(`.tr_${futureFigure[i][1]}_td_${futureFigure[i][0]}`);
-      if (cell2 && cell2.classList.contains('red') && !canPutHere(futureFigure, historyFigure)) {
-        flag = false;
-        break
-      } else if (cell) {
-        cell.classList.remove('white')
-        cell.classList.add(`red`);
-        cell.classList.add(`red_${index}`);
+      for (let j = 0; j < colors.length; j++) {
+        if (cell2 && cell2.classList.contains(colors[j]) && !canPutHere(futureFigure, historyFigure)) {
+          flag = false;
+          break
+        } else if (cell) {
+          cell.classList.remove('white')
+          cell.classList.add(color);
+          cell.classList.add(`${color}_${index}`);
+        }
       }
     }
     if (flag) {

@@ -17,7 +17,15 @@ td {
 }
 
 .red {
-    background-color: red;
+    background-color: #f52f2f;
+}
+
+.blue {
+    background-color: #2f5df5;
+}
+
+.green {
+    background-color: #32a405;
 }
 
 #button-start {
