@@ -25,7 +25,7 @@ let level = 1;
 let levelDiv = document.querySelector('#level');
 let initialTime = timer;
 
-let colors = ['red', 'blue', 'green'];
+let colors = ['red', 'blue', 'black', "violet", "dark-green", "orange", "cyan"];
 let color = '';
 
 function createFigure() {
@@ -76,7 +76,6 @@ function createFigure() {
   ]
   index = index + 1;
   choosingRandomFigure = Math.round(Math.random() * 6); // выбираю рандомную фигуру
-  choosingRandomColor = Math.round(Math.random() * 2); // выбираю рандомную фигуру
 
   if (choosingRandomFigure === 0) {
     nameFigure = 0
@@ -117,7 +116,7 @@ function createFigure() {
   }
 
   recordDiv.textContent = localStorage.getItem('record')
-  color = colors[choosingRandomColor];
+  color = colors[choosingRandomFigure];
   return figure[choosingRandomFigure];
 }
 

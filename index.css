@@ -1,3 +1,7 @@
+body {
+    background-color: #574265;
+}
+
 .root {
     display: flex;
     flex-direction: column;
@@ -8,6 +12,12 @@
 table {
     margin: 0 auto;
     border-collapse: collapse;
+    background-color: #fff;
+}
+
+div {
+    font-size: 16px;
+    color: #fff;
 }
 
 td {
@@ -21,11 +31,27 @@ td {
 }
 
 .blue {
-    background-color: #2f5df5;
+    background-color: #0835cb;
 }
 
-.green {
-    background-color: #32a405;
+.black {
+    background-color: #000000;
+}
+
+.violet {
+    background-color: #7b15c7;
+}
+
+.orange {
+    background-color: #ff7900;
+}
+
+.dark-green {
+    background-color: #115202;
+}
+
+.cyan {
+    background-color: #0b9cda;
 }
 
 #button-start {
