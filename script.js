@@ -76,22 +76,7 @@ function createFigure() {
   ]
   index = index + 1;
   choosingRandomFigure = Math.round(Math.random() * 6); // выбираю рандомную фигуру
-
-  if (choosingRandomFigure === 0) {
-    nameFigure = 0
-  } else if (choosingRandomFigure === 1) {
-    nameFigure = 1
-  } else if (choosingRandomFigure === 2) {
-    nameFigure = 2
-  } else if (choosingRandomFigure === 3) {
-    nameFigure = 3
-  } else if (choosingRandomFigure === 4) {
-    nameFigure = 4
-  } else if (choosingRandomFigure === 5) {
-    nameFigure = 5
-  } else if (choosingRandomFigure === 6) {
-    nameFigure = 6
-  }
+  nameFigure = choosingRandomFigure
 
   if (score > 5 && score <= 10) {
     timer = 400
@@ -119,22 +104,6 @@ function createFigure() {
   color = colors[choosingRandomFigure];
   return figure[choosingRandomFigure];
 }
-
-// let levelButtonUp = document.querySelector('#button-level-up');
-//
-// levelButtonUp.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   levelButtonUp.blur();
-//   if (level < 5) {
-//     timer -= 100;
-//     initialTime = timer;
-//     levelDiv.textContent = `${level + 1}`;
-//   }
-//   console.log(initialTime)
-//   console.log(level)
-// })
-
-
 let nameFigure = 0
 let currentFigure = createFigure(); // Создаю первую фигуру
 let gameOver = false;
